@@ -1,0 +1,11 @@
+<div class="book-card">
+  <img *ngIf="book.Poster" [src]="book.Poster" alt="Card image cap">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{book.Title | titleFilter}}</h5>
+      <p class="card-text">Author: {{book.Author}}</p>
+      <p class="card-text">{{book.Date | date:"yyyy"}}</p>
+      <button class="btn btn-primary" *ngIf="showEditButton" (click)="edit()">Edit Book</button>
+    </div>
+  </div>
+</div>

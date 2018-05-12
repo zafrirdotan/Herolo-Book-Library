@@ -1,0 +1,19 @@
+.childModal {
+    top: 120px;
+}
+.book-list {
+    padding: 100px 0 60px 0;
+    width: 400px;
+    @media screen and (max-width: 768px) {
+        width: 90%;
+    }
+    margin: auto;
+    .add-book-button{
+        width: 100%;
+        margin: 10px auto;
+        height: 60px;
+    }
+    .book-box{
+        margin: 10px auto;
+    }
+}

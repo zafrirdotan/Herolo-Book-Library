@@ -1,0 +1,55 @@
+<form [formGroup]="editBookForm" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <mat-form-field>
+      <!-- title input -->
+      <input matInput placeholder="title" formControlName="title">
+      <mat-error *ngIf="title.hasError('forbiddenName')">
+        Sorry You can't use thus symbols "@#$%^&*"
+      </mat-error>
+      <mat-error *ngIf="title.hasError('minlength')">
+        Title Is to Short
+      </mat-error>
+      <mat-error *ngIf="title.hasError('titleExists')">
+        Sorry book with the same title exists
+      </mat-error>
+      <mat-error *ngIf="title.hasError('maxlength')">
+        Title Is to long
+      </mat-error>
+      <mat-error *ngIf="title.hasError('required')">
+        Title is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+   
+    <!-- author input -->
+    <mat-form-field>
+      <input matInput placeholder="author" formControlName="author">
+      <mat-error *ngIf="author.hasError('minlength')">
+        Author Is to Short
+      </mat-error>
+      <mat-error *ngIf="author.hasError('maxlength')">
+        Author Is to long
+      </mat-error>
+
+      <mat-error *ngIf="author.hasError('required')">
+        Author is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+   
+    <!-- date input -->
+    <mat-form-field>
+      <input matInput [matDatepicker]="dp" placeholder="Month and Year" formControlName="date">
+      <mat-error *ngIf="date.hasError('required')">
+        Date is
+        <strong>required</strong>
+      </mat-error>
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp class="datepicker" startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, dp)"
+        panelClass="example-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button type="submit" [disabled]="!editBookForm.valid">Save</button>
+
+  </div>
+</form>

@@ -1,0 +1,55 @@
+<div class="book-list ">
+  <button mat-icon-button (click)="parentModal.show(); isNewBookMode = true" 
+  class="btn-primary add-book-button">
+    Add a new book
+  </button>
+  <div *ngFor="let book of books" class="book-box">
+    <book [book]="book" [showEditButton]="true" 
+    (openEditModal)="selectBook(book); parentModal.show()">
+    </book>
+  </div>
+</div>
+
+<!-- ngx bootstrap modal -->
+<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" 
+  aria-labelledby="dialog-nested-name1"
+(onHidden)="unSelectBook()">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <book [book]="selectedBook" *ngIf="selectedBook"></book>
+        <h4 class="modal-title pull-left" *ngIf="!selectedBook">
+          Add a new book
+        </h4>
+        <button type="button" class="close pull-right" aria-label="Close" 
+          (click)="parentModal.hide();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- edit-book-form -->
+        <edit-book-form *ngIf="selectedBook || isNewBookMode" 
+          [book]="selectedBook" 
+          (saveBook)="saveBook($event); parentModal.hide()"></edit-book-form>
+        
+        <button mat-raised-button *ngIf="selectedBook" type="button" 
+          (click)="childModal.show()">deleteBook</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade childModal" bsModal #childModal="bs-modal" 
+  tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p>Are you sure you want to delete this book?</p>
+        <button type="button" class="btn btn-default" 
+        (click)="childModal.hide(); parentModal.hide(); deleteBook()">Yes</button>
+        <button type="button" class="btn btn-primary" 
+        (click)="childModal.hide()">No</button>
+      </div>
+    </div>
+  </div>
+</div>
